@@ -110,8 +110,8 @@ def image_loader(image_name):
     return image.to(device, torch.float)
 
 
-style_img = image_loader("data/neural_images/picasso.jpg")
-content_img = image_loader("data/neural_images/dancing.jpg")
+style_img = image_loader("./images/picasso.jpg")
+content_img = image_loader("./images/dancing.jpg")
 
 assert style_img.size() == content_img.size(), \
     "we need to import style and content images of the same size"
@@ -134,7 +134,7 @@ def imshow(tensor, title=None):
     plt.imshow(image)
     if title is not None:
         plt.title(title)
-    plt.pause(0.01) # pause a bit so that plots are updated
+    plt.pause(0.001) # pause a bit so that plots are updated
 
 
 plt.figure()
