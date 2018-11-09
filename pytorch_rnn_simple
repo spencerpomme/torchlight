@@ -1,0 +1,60 @@
+from io import open
+import glob
+import os
+import unicodedata
+import string
+import torch
+import torch.nn as nn
+import random
+import time
+import math
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import codecs
+
+
+# helper functions
+def findFiles(path):
+    """
+    Find files under the given path.
+    """
+    return glob.glob(path)
+
+def unicodeToAscii(s, vocab=string.ascii_letters+" .,;'"):
+    """
+    Turn a unicode string to plain ASCII.
+    Params:
+        s: string to be converted
+        vocab: vocabulary as in unique characters, default to all ascii chars.
+    """
+    return ''.join(
+        c for c in unicodedata.normalize('NFD', s)
+        if unicodedata.category(c) != 'Mn'
+        and c in vocab
+    )
+
+
+# IO
+data = codecs.open('data/potter.txt', 'r', encoding='utf8', errors='ignore').read()
+predict = codecs.open('data/output.txt', 'w', encoding='utf8')
+chars = list(set(data))
+data_size = len(data) 
+vocab_size = len(chars)
+
+print(char_to_ix)
+print(ix_to_char)
+
+
+# hyperparameters
+hidden_size = 256          # size of hidden layer of neurons
+seq_length = 128           # number of steps to unroll the RNN for
+learning_rate = 1e-1
+
+
+# model parameters
+W_xh = np.random.randn(hidden_size, vocab_size) * 0.01    # weight: input to hidden
+W_hh = np.random.randn(hidden_size, hidden_size) * 0.01   # weight: hidden to hidden
+W_hy = np.random.randn(vocab_size, hidden_size) * 0.01    # weight: hidden to output
+b_h = np.zeros((hidden_size, 1))                          # hidden bias
+b_y = np.zeros((vocab_size, 1))                           # output bias
+
